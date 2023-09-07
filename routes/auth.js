@@ -2,6 +2,7 @@ const authRoute = require('express').Router();
 const userModel = require('../models/User');
 const bcrypt = require('bcrypt');
 
+
 authRoute.post('/register',async (req,res)=>{
     
     const {username, email, password} = req.body;
