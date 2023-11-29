@@ -17,7 +17,7 @@ const app=express();
 dotenv.config();
 
 app.use(cors({
-    origin:'https://socialrestapi.onrender.com/api/'
+    origin:'https://socialfrontend-egzp.onrender.com/'
 }));
 
 app.use(express.json());
