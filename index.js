@@ -17,9 +17,10 @@ const app=express();
 dotenv.config();
 
 var corsOptions = {
-    origin: 'https://socialfrontend-egzp.onrender.com',
+    origin: '*',
     optionsSuccessStatus: 200 ,
-    methods: "GET, PUT, POST, DELETE,"
+    methods: "GET, PUT, POST, DELETE,",
+    credentials: true
 }
 
 app.use(cors(corsOptions));
