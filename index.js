@@ -19,6 +19,7 @@ dotenv.config();
 var corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200 ,
+    allowedHeaders: ["content-type", ...SuperTokens.getCORSAllowedHeaders()],
     methods: "GET, PUT, POST, DELETE,",
     credentials: true
 }
