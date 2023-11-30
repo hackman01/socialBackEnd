@@ -9,7 +9,7 @@ const postRoute = require('./routes/post');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
-let SuperTokens = require("supertokens-node");
+
 const PORT = process.env.PORT || 8000;
 
 
@@ -17,10 +17,19 @@ const app=express();
 
 dotenv.config();
 
+
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+    });
+
 var corsOptions = {
     origin: '*',
     optionsSuccessStatus: 200 ,
-    allowedHeaders: ["content-type", ...SuperTokens.getCORSAllowedHeaders()],
+   
     methods: "GET, PUT, POST, DELETE,",
     credentials: true
 }
