@@ -9,6 +9,7 @@ const postRoute = require('./routes/post');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
+let SuperTokens = require("supertokens-node");
 const PORT = process.env.PORT || 8000;
 
 
