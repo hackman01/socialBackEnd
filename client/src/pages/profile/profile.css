@@ -1,0 +1,103 @@
+.profile{
+    display: flex;
+    
+}
+
+.profileRight{
+    flex: 4;
+    height: calc(100vh - 50px) ;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.profileCover{
+    
+    margin: 0;
+    padding: 0;
+    height: 320px;
+position: relative;
+   
+}
+.profileCoverImg{
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    
+}
+.coverUser{
+    height:130px;
+    width: 130px;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+    position: absolute;
+    object-fit: cover;
+    left: 0;
+    right: 0;
+    top: 170px;
+    margin: auto;
+
+}
+.user-name
+{
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+.name{
+    font-size: 22px;
+    margin: auto;
+    padding-bottom: 5px;
+}
+
+.profileRightBottom{
+    display: flex;
+}
+
+.chngImg{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    height: auto;
+    width: auto;
+    top: 20px;
+    cursor: pointer;
+    right: 20px;
+    border-style: none;
+    opacity: 0.5;
+}
+.chngImgBtn{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    height: auto;
+    width: auto;
+    bottom: 90px;
+    cursor: pointer;
+    right: 20px;
+    border-style: none;
+    opacity: 0.7;
+    text-align: center;
+}
+.chngPImg{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    height: auto;
+    width: auto;
+    bottom: 90px;
+    cursor: pointer;
+    left: 31.3rem;
+    border-style: none;
+    opacity: 0.5;
+}
+.chngPImgBtn{
+    position: absolute;
+    left: 30.5rem;
+    opacity: 0.7;
+}
+.PimgContainer{
+    display: flex;
+    margin: auto;
+}

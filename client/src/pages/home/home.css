@@ -1,0 +1,12 @@
+.container{
+    display: flex;
+  width: 100vw;
+}
+
+.merged-container{
+  display: flex;
+  flex: 4;
+  overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

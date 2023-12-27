@@ -18,13 +18,6 @@ const app=express();
 dotenv.config();
 
 
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-    });
 
 var corsOptions = {
     origin: '*',
@@ -70,6 +63,10 @@ mongoose.connect(process.env.MONGO_URL,{useNewUrlParser : true}).then(()=>{conso
 app.use('/api/users',userRoute);
 app.use('/api/auth',authRoute);
 app.use('/api/posts',postRoute);
+
+app.get('*',()=>{
+    res.sendFile(__dirname+'/client/build/index.html');
+})
 
 app.listen(PORT,()=>{
     console.log("Server started successfully!");

@@ -1,0 +1,155 @@
+.feed{
+    flex: 6;
+    height: calc(100vh - 50px);
+    /* overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none; */
+}
+.feed-wrapper
+{
+    margin-top: 15px;
+    padding: 10px;
+}
+.bottom-left{
+    display: flex;
+    align-items: center;
+}
+.description{
+    font-size: 15px;
+    
+    word-wrap: break-word;
+}
+
+.likes{
+    font-size: 15px;
+}
+
+.feed-post{
+    padding: 20px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    box-shadow: rgba(63, 65, 66, 0.4) 0px 0px 10px;
+}
+.photo{
+    
+    color: red;
+    margin: 0px 5px 0px 0px;
+    cursor: pointer;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.tag{
+    color:blue;
+    margin: 0px 5px 0px 13px;
+    cursor: pointer;
+}
+.feeling{
+    cursor: pointer;
+    color: yellow;
+    margin: 0px 5px 0px 15px;
+}
+.location{
+    color: green;
+    margin: 0px 0px 0px 15px;
+}
+
+.bottom-icons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bottom-icon{
+    padding: 0px 5px 5px 0px;
+    cursor: pointer;
+}
+
+.post-top{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-mid{
+   
+    max-width: 100%;
+}
+.post-pic{
+    width: 100%;
+    margin: 10px 0px 5px 0px;
+    height: 25rem;
+    object-fit: cover;
+}
+.post-content{
+    box-sizing: border-box;
+    padding : 10px;
+    width: 100%;
+    resize: none;
+    height: 9rem;
+    margin: 10px 0px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: rgb(219, 218, 218);
+}
+
+.post-button{
+    background-color: rgb(223, 35, 35);
+    font-size: 15px;
+    color: aliceblue;
+    height: 1.5rem;
+    width: 3.5rem;
+    border-style: none;
+    border-radius: 3px;
+    cursor: pointer;
+    
+}
+
+.post-button:hover{
+    background-color: rgb(240, 72, 72);
+}
+
+.post-content:focus{
+    outline: none;
+}
+
+.picUpload{
+    display: flex;
+    align-items: center;
+}
+
+.img{
+  size: 32px 32px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.shareImgContainer{
+    padding: 20px;
+    position: relative;
+}
+
+.shareImg{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.cancelShareImg{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+.load{
+    display: block;
+    margin: auto;
+    color: rgb(161, 20, 20);
+}
+.inactive{
+    color : grey;
+    cursor: default;
+}

@@ -1,0 +1,164 @@
+.rightbar{
+    flex:3;
+    height: calc(100vh - 50px);
+    /* overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none; */
+}
+.rightbar-Ad{
+    text-align: center;
+}
+.batman{
+    color: #a52a2a;
+    height: 256px;
+    width: 256px;
+    object-fit: contain;
+}
+.online{
+    margin-left: 10px;
+}
+.online-friends{
+    margin: 0px 20px 0px 10px;
+     /* height: calc(100vh - 336px); */
+    /*overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none; */
+}
+.friend{
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+}
+.on{
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    border: white;
+    border-style: solid;
+    border-width: 2.5px;
+    background-color: green;
+    position: absolute;
+    bottom:0;
+    left: 0;  
+}
+.active-user{
+    height: 35px;
+    width: 35px;
+}
+.friend-img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin: 0px;
+   
+}
+.friend-name{
+    margin-left: 10px;
+}
+
+.rightbar-profile-friends{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 10px;
+}
+.title{
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+.profile-friend{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: small;
+
+}
+.profile-friend-img{
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    margin: auto;
+    object-fit: cover;
+}
+
+.profile-friend-name{
+    margin: 10px auto 10px auto;
+}
+.key{
+    font-weight: 400;
+    margin: 10px;
+}
+.value
+{
+    font-weight: 300;
+    margin: 10px;
+}
+.info{
+    display: flex;
+    
+}
+.rightbar-profile-info{
+    margin-top: 23px;
+    margin-bottom: 20px;
+}
+.user{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.rightBarFollowButton{
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    font-size: medium;
+    font-weight: 500;
+    margin-top: 25px;
+    margin-left: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+.rightBarFollowButton.h3{
+    display: flex;
+    align-items: center;
+}
+.editInfoBtn{
+    margin: 10px 10px 0px 10px;
+    padding: 5px;
+    border-style: none;
+    cursor: pointer ;
+    font-size: medium;
+}
+.promptContainer{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+
+}
+.data{
+    margin: 5px;
+    padding: 5px;
+    border-style: dashed;
+    border-radius: 5px;
+}
+.subtn{
+    padding: 5px;
+    color: aliceblue;
+    margin: 5px;
+    background-color: #db2323;
+    border-style: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.subtn:active{
+    background-color: #940404
+}
+.joke-container{
+    margin:20px;
+    line-height : 2;
+}
