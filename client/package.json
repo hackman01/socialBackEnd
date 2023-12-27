@@ -41,5 +41,5 @@
     ]
   },
   
-  "proxy": "https://phonepepgserver.onrender.com/api/"
+  "proxy": "https://socialbackend-feh4.onrender.com/api/"
 }
