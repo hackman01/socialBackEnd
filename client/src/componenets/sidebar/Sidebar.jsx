@@ -8,7 +8,7 @@ import { CircularProgress } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
 
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = '/api/images/';
 
 
 const CloseFriend = ({user}) =>{
@@ -35,7 +35,7 @@ function Sidebar(){
 useEffect(() => {
   const fetchFriends = async () =>{
     try{
-    const friends = await axios.get(`/users/followers/${cuser._id}`)
+    const friends = await axios.get(`/api/users/followers/${cuser._id}`)
     setUsers(friends.data);
     setLoad(false);
     }

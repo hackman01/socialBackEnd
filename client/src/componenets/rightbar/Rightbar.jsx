@@ -12,7 +12,7 @@ import 'react-modern-drawer/dist/index.css';
 axios.defaults.withCredentials = true
 
 
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = '/api/images/';
 
 const Friend = ({user}) => {
     return<>
@@ -56,12 +56,12 @@ function Rightbar({user}){
            try{
             if(isFollowed)
             {
-                await axios.put(`/users/${user._id}/unfollow`,{userId : cuser._id})    //here we changing followings remotely
+                await axios.put(`/api/users/${user._id}/unfollow`,{userId : cuser._id})    //here we changing followings remotely
                 dispatch({type:"UNFOLLOW",payload : user._id})                      //dispatch triggers the action and action is performed through reducer
             }
             else                                                     //here we are changing followings locally 
             {
-                await axios.put(`/users/${user._id}/follow`,{userId : cuser._id})
+                await axios.put(`/api/users/${user._id}/follow`,{userId : cuser._id})
                 dispatch({type:"FOLLOW",payload : user._id})                        //dispatch triggers the action and action is performed through reducer
             }
            }catch(err){
@@ -78,7 +78,7 @@ function Rightbar({user}){
         useEffect(()=>{
             const fetchFriends = async () => {
                 try{
-                const friend = await axios.get('/users/friends/' + user._id)
+                const friend = await axios.get('/api/users/friends/' + user._id)
                 setFriends(friend.data)
                 setLoad(false);
                 }catch(err)
@@ -120,7 +120,7 @@ function Rightbar({user}){
               }
               
               try{
-                await axios.put(`/users/${cuser._id}`,newPost)
+                await axios.put(`/api/users/${cuser._id}`,newPost)
                 dispatch({type : "INFOAGE", payload : age})
                 dispatch({type : "INFOREL", payload : relationship})
                 dispatch({type : "INFOWORK", payload : workat})

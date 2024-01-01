@@ -6,7 +6,7 @@ import { Search, Face, ExitToApp } from "@material-ui/icons";
 import { Link } from 'react-router-dom';
 import {AuthContext} from '../../context/AuthContext';
 
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = '/api/images/';
 
 
 
@@ -21,7 +21,7 @@ function Topbar(){
      
      useEffect(()=>{
       const fetch = async ()=>{
-        const list = await axios.post('/users/search',{userId:user._id,text:search})
+        const list = await axios.post('/api/users/search',{userId:user._id,text:search})
         setDrop(list)
       }
       fetch()

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = '/api/images/';
 
 
 
@@ -27,7 +27,7 @@ const Feed = ({post}) =>
 
     useEffect(()=>{
       const fetchUser = async () => {
-       const res = await axios.get(`/users?userId=${post.userId}`);
+       const res = await axios.get(`/api/users?userId=${post.userId}`);
        setUser(res.data);
       }
       fetchUser();
@@ -37,7 +37,7 @@ const Feed = ({post}) =>
      const likeHandler = () =>{
 
       try{
-         axios.put(`/posts/${post._id}/like`,{userId : currentUser._id});
+         axios.put(`/api/posts/${post._id}/like`,{userId : currentUser._id});
        }catch(err){
          console.log(err);
        }

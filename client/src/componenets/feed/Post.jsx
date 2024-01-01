@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = '/api/images/';
 
 function Post({reRender}){
 
@@ -32,7 +32,7 @@ const submitHandler = async (e) => {
           newPost.img = fileName;
 
           try{
-              await axios.post("/upload",data);
+              await axios.post("/api/upload",data);
           } catch(err)
           {
                console.log(err);
@@ -40,7 +40,7 @@ const submitHandler = async (e) => {
      }
 
      try{
-       await axios.post("/posts",newPost);
+       await axios.post("/api/posts",newPost);
      }catch(err)
      {
           console.log(err);

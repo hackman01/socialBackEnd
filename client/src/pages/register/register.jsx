@@ -37,7 +37,7 @@ export default function Register() {
     }
 
     try{
-      await axios.post('auth/register',user);
+      await axios.post('/api/auth/register',user);
       await loginCall({ email:email.current.value , password:password.current.value},dispatch);
       
 

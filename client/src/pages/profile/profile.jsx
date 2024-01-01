@@ -11,7 +11,7 @@ import { CameraAlt } from "@material-ui/icons";
 import { AuthContext } from "../../context/AuthContext";
 
 
-const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+const PF = '/api/images/';
 
 
 
@@ -45,7 +45,7 @@ const changeCoverHandler = async (e) =>{
           newPost.coverPic = fileName;
 
           try{
-              await axios.post("/upload",data);
+              await axios.post("/api/upload",data);
               dispatch({type: "coverPic",payload : fileName})
           } catch(err)
           {
@@ -53,7 +53,7 @@ const changeCoverHandler = async (e) =>{
           }
      }
      try{
-        await axios.put(`/users/${cuser._id}`,newPost);
+        await axios.put(`/api/users/${cuser._id}`,newPost);
         
       }catch(err)
       {
@@ -80,7 +80,7 @@ const changeProfileHandler = async (e) =>{
           newPost.profilePic = fileName;
 
           try{
-              await axios.post("/upload",data);
+              await axios.post("/api/upload",data);
               dispatch({type: "profilePic",payload : fileName})
           } catch(err)
           {
@@ -88,7 +88,7 @@ const changeProfileHandler = async (e) =>{
           }
      }
      try{
-        await axios.put(`/users/${cuser._id}`,newPost);
+        await axios.put(`/api/users/${cuser._id}`,newPost);
         
       }catch(err)
       {
@@ -101,7 +101,7 @@ const changeProfileHandler = async (e) =>{
 
 useEffect(()=>{
     const fetchUser = async () => {
-        const res = await axios.get("/users?userId="+Id);
+        const res = await axios.get("/api/users?userId="+Id);
         setUser(res.data);
        }
        fetchUser();
