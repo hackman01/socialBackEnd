@@ -35,8 +35,8 @@ const [err,setErr] = useState(false)
             <div className="login-msg">
                 Connect with friends and world.
             </div>
-            Test Username :- test@example.com
-            Test Password :- tester
+            <p>Test Username :- test@example.com</p>
+            <p>Test Password :- tester</p>
         </div>
        
        {console.log(error)}
