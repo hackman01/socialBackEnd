@@ -216,22 +216,23 @@ function Rightbar({user}){
     
     }
     
-    const [joke,setJoke] = useState();
+    
+    
+    const HomeRightbar = ({Users}) => {
+        
+        const [joke,setJoke] = useState("Loading...");
         useEffect(()=>{ const callJoke = async ()=>{
-            const data=await axios.get('https://icanhazdadjoke.com/',{headers : {
-                Accept: "application/json",
-                'Access-Control-Allow-Origin' : "*"
-            }});
-            setJoke(data.data.joke);
-            console.log(data);
+            
+                fetch('https://official-joke-api.appspot.com/random_joke')
+                .then(response => response.json())
+                .then(data => setJoke(data.setup+"......."+data.punchline)).catch((err)=>{
+                    console.log(err);
+                });
+          
         }
         callJoke();
     }
         ,[])
-    
-    const HomeRightbar = ({Users}) => {
-        
-
         
 
         return <div className="rightbar">

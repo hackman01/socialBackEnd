@@ -190,7 +190,7 @@ userRoute.post('/search', async (req,res) => {
       const users = await userModel.find();
    let userList =[]
    users.map(user=>{
-       if(user.username.includes(text) && user._id!=userId) 
+       if(user.username.toLowerCase().includes(text.toLowerCase()) && user._id!==userId) 
        {
          const {_id,username,profilePic,...other} = user
          userList.push({_id,username,profilePic}) 

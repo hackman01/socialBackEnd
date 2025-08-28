@@ -21,6 +21,7 @@
 .topbar-centre {
   flex: 5;
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   padding: 0 10px;
@@ -69,8 +70,9 @@
 }
 
 .mgf {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  width: 110%;
+  right: 10%;
   max-width: 500px;
 }
 
@@ -197,8 +199,6 @@
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   z-index: 1001;
-  opacity: 0;
-  visibility: hidden;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -216,11 +216,9 @@
   border-radius: 8px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   z-index: 1001;
-  overflow: hidden;
+  /* overflow: hidden; */
   transform-origin: top right;
   transform: scale(0.8);
-  opacity: 0;
-  visibility: hidden;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 

@@ -58,7 +58,7 @@ app.use('/api/users',userRoute);
 app.use('/api/auth',authRoute);
 app.use('/api/posts',postRoute);
 
-app.get('/*',()=>{
+app.get('/*',(req,res)=>{
     res.sendFile(__dirname+'/client/build/index.html');
 })
 

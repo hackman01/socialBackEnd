@@ -42,6 +42,8 @@ postRouter.delete('/:id', async (req,res) => {
 try{
 
     const post = await postModel.findById(req.params.id);
+    console.log(post.userId);
+    console.log(req.body);
     if(req.body.userId===post.userId)
     {
         await post.deleteOne();

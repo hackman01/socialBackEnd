@@ -39,7 +39,7 @@ function Feeds({cuser}){
         <div className="feed-wrapper">
         {cuser? cuser._id===user._id && <Post reRender={setPostRender} /> : <Post reRender={setPostRender} />}
        {load ? <CircularProgress style={{color : 'brown',display : 'block',margin : 'auto',padding : '50px'}} />  : posts.map((p)=>{
-        return <Feed key={p._id} post={p} />
+        return <Feed key={p._id} post={p} setPostRender={setPostRender} />
         
        })}
        

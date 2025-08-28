@@ -13,7 +13,7 @@ const PF = '/api/images/';
 function Topbar(){
 
      const {user}=useContext(AuthContext);
-     const [search,setSearch] = useState()
+     const [search,setSearch] = useState('')
      const [drop,setDrop] = useState([])
      const [box,setBox] = useState(false)
      const [searchBox,setSearchBox] = useState(false)
@@ -21,11 +21,18 @@ function Topbar(){
      
      useEffect(()=>{
       const fetch = async ()=>{
+        try{
         const list = await axios.post('/api/users/search',{userId:user._id,text:search})
-        setDrop(list)
+        setDrop(list.data)
+        }
+        catch(err){
+          console.log(err);
+        }
       }
+      if(search!==''){
       fetch()
-     },[user._id,search])
+      }
+     },[search])
      
      
 
@@ -48,25 +55,27 @@ function Topbar(){
 
     const Box = () =>{
       return <>
-        <div className="box">
+        {drop.length>0 && <div className="box">
           <div className="boxItem">
             {
-            drop.data.map(user=>{
+            drop.map(user=>{
               return <Users key={user._id} user={user} />
             })}
           </div>
-        </div>
+        </div>}
       </> 
     }
 
     const HandleprofIcon = (e) => {
             e.preventDefault();
             setBox(!box)
+            console.log("box : ",box)
     }
 
     const logoutHandler = () => {
       window.location.reload()
     }
+
 
 const DisplayBox = () =>{
   return <>
@@ -105,7 +114,7 @@ const DisplayBox = () =>{
             <Search className="mgf"  />
             
             
-            {search && searchBox ?<Box />:null}
+            {search ?<Box />:null}
           </div>
           <div className="topbar-right">
              <div className="topbar-links">

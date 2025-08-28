@@ -22,20 +22,26 @@ authRoute.post('/register',async (req,res)=>{
 })
 
 authRoute.post('/login', async (req,res) => {
-    
-    try{
-
-        const user = await userModel.findOne({email:req.body.email});
-        !user && res.status(404).json({message:"User Not found"});
+    console.log(req.body);
+    try {
+        const user = await userModel.findOne({email: req.body.email});
+        if (!user) {
+            return res.status(404).json({message: "User not found"});
+        }
         
-        const validPass = await bcrypt.compare(req.body.password,user.password);
-        !validPass && res.status(400).json({message:"Wrong Password!"});
-    
-        res.status(200).json(user);
-
-    }
-    catch(err) {
-        console.log(err);
+        const validPass = await bcrypt.compare(req.body.password, user.password);
+        if (!validPass) {
+            return res.status(400).json({message: "Wrong password!"});
+        }
+        
+        // If we get here, login was successful
+        // You might want to generate a token here if you're using JWT
+        const {password, ...others} = user._doc;
+        res.status(200).json(others);
+        
+    } catch(err) {
+        console.error('Login error:', err);
+        res.status(500).json({message: 'Internal server error'});
     }
 })
 

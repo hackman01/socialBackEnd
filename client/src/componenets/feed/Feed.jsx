@@ -1,7 +1,7 @@
 import React, { useEffect,useContext } from "react";
 import './Feed.css';
 import { useState } from "react";
-import {Comment, Send, ThumbUp} from '@material-ui/icons';
+import {Comment, DeleteOutline, Send, ThumbUp} from '@material-ui/icons';
 
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ const PF = '/api/images/';
 
 
 
-const Feed = ({post}) =>
+const Feed = ({post, setPostRender}) =>
 {
     const [user,setUser] = useState({});
 
@@ -20,6 +20,20 @@ const Feed = ({post}) =>
 
     const [like,setLike] = useState(post.likes.length);
     const [isLiked,setIsLiked] = useState(false);
+
+    const deleteHandler = async (e) =>{
+      e.preventDefault();
+      e.stopPropagation();
+    try{
+        const res = await axios.delete(`/api/posts/${post._id}`,{data:{userId : currentUser._id}});
+        if(res.status === 200)  
+        {
+            setPostRender(Math.random());
+        }
+    }catch(err){
+        console.log(err);
+    }
+    }
 
    useEffect(()=>{
     setIsLiked(post.likes.includes(currentUser._id));
@@ -34,10 +48,10 @@ const Feed = ({post}) =>
     },[post.userId])
 
 
-     const likeHandler = () =>{
+     const likeHandler = async () =>{
 
       try{
-         axios.put(`/api/posts/${post._id}/like`,{userId : currentUser._id});
+         await axios.put(`/api/posts/${post._id}/like`,{userId : currentUser._id});
        }catch(err){
          console.log(err);
        }
@@ -50,9 +64,13 @@ const Feed = ({post}) =>
 
     return <div className="feed-post">
     <Link to={"/profile/"+post.userId} style={{ textDecoration:'none',color:'black' }} >
-    <div className="post-top">
-         <img src={user.profilePic ? PF+user.profilePic : PF+"person/noAvatar.png"} alt="user" className="img" />
-         <span>{user.username}</span>
+    <div className="feed-top">
+        <div className="post-top-left">
+        <img src={user.profilePic ? PF+user.profilePic : PF+"person/noAvatar.png"} alt="user" className="img" />
+        <span>{user.username}</span>
+        </div>
+         
+        {currentUser._id === post.userId && <DeleteOutline className="delete" style={{ fontSize: 30 }} onClick={deleteHandler}/>}
     </div> 
     </Link>   
     <div className="post-mid">
@@ -65,10 +83,10 @@ const Feed = ({post}) =>
             <div className="bottom-icons">
                 <div className="bottom-left">
                 <ThumbUp className="bottom-icon" onClick={likeHandler} />
-                <Send className="bottom-icon inactive" />
+                {/* <Send className="bottom-icon inactive" /> */}
                 </div>
                 <div className="bottom-right">
-                <Comment className="bottom-icon inactive" />
+                {/* <Comment className="bottom-icon inactive" /> */}
                 </div>
             </div>
                 <span className="likes">Liked by {like} people.</span>

@@ -57,15 +57,15 @@ useEffect(() => {
               <span>Feed</span>
             </li>
             </Link>
-            <li className="sidebar-list-item inactive">
+            {/* <li className="sidebar-list-item inactive">
               <Chat className="sidebar-icon"/>
               <span>Chats</span>
-            </li>
+            </li> */}
          
-            <li className="sidebar-list-item inactive">
+            {/* <li className="sidebar-list-item inactive">
               <GroupAdd className="sidebar-icon" />
               <span>Groups</span>
-            </li>
+            </li> */}
         
            
         </div>

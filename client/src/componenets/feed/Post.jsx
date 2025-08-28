@@ -11,12 +11,14 @@ const PF = '/api/images/';
 function Post({reRender}){
 
 const desc = useRef();
+const [loading,setLoading] = useState(false);
 const {user} = useContext(AuthContext);
 const [fileImg,setFileImg] = useState(null);
 
 const submitHandler = async (e) => {
     
      e.preventDefault();
+     setLoading(true);
      const newPost = {
           userId:user._id,
           desc:desc.current.value,
@@ -44,6 +46,8 @@ const submitHandler = async (e) => {
      }catch(err)
      {
           console.log(err);
+     }finally{
+          setLoading(false);
      }
      reRender(Math.random())
      desc.current.value=""
@@ -93,7 +97,7 @@ const submitHandler = async (e) => {
      
      </div>
      <div className="bottom-right">
-     <button className="post-button" type="submit" >Share</button>
+     <button className="post-button" type="submit" disabled={loading}>{loading ? "Posting..." : "Share"}</button>
      </div>
      </div>
      
