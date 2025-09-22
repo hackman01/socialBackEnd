@@ -29,6 +29,14 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); //solves the corp error :)
+app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+      },
+    })
+  );
 app.use(express.static(path.join(__dirname,"/client/build")))
 app.use('/api/images',express.static(path.join(__dirname,"public/images/")));
 
