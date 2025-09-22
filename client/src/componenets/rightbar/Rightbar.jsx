@@ -18,7 +18,7 @@ const Friend = ({user}) => {
     return<>
       <Link to={"/profile/"+user._id} style={{ textDecoration:'none',color:'black' }} >
          <div className="profile-friend">
-              <img src={user.profilePic?PF+user.profilePic : PF+"person/noAvatar.png"} alt="friend" className="profile-friend-img" />
+              <img src={user.profilePic?user.profilePic : PF+"person/noAvatar.png"} alt="friend" className="profile-friend-img" />
               <span className="profile-friend-name">{user.username}</span>
         </div>
       </Link>

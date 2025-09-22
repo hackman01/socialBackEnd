@@ -1,4 +1,4 @@
-import React, { useContext,useEffect,useState } from "react";
+import React, { useContext,useEffect,useState, useRef } from "react";
 import './Topbar.css';
 import axios from "axios";
 import { Search, Face, ExitToApp } from "@material-ui/icons";
@@ -17,6 +17,8 @@ function Topbar(){
      const [drop,setDrop] = useState([])
      const [box,setBox] = useState(false)
      const [searchBox,setSearchBox] = useState(false)
+     const searchBoxRef = useRef()
+     const boxRef = useRef();
 
      
      useEffect(()=>{
@@ -34,6 +36,20 @@ function Topbar(){
       }
      },[search])
      
+     useEffect(()=>{
+      const handleClickOutside = (event) => {
+        if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
+          setSearchBox(false);
+        }
+        if(boxRef.current  && !boxRef.current.contains(event.target)){
+          setBox(false)
+       }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+     },[])
      
 
     const Users=({user})=>{
@@ -44,7 +60,7 @@ function Topbar(){
       <Link to={"/profile/"+user._id} style={{ textDecoration:'none',color:'black' }} >
        
         <div className="boxUser" onClick={()=>{setSearchBox(false)}}>
-        <img src={user.profilePic ? PF+user.profilePic : PF+"person/noAvatar.png"} alt="" className="boxUserImg" />
+        <img src={user.profilePic ? user.profilePic : PF+"person/noAvatar.png"} alt="" className="boxUserImg" />
         <span>{user.username}</span>
         </div>
         
@@ -55,7 +71,7 @@ function Topbar(){
 
     const Box = () =>{
       return <>
-        {drop.length>0 && <div className="box">
+        {search && <div ref={searchBoxRef} className="box">
           <div className="boxItem">
             {
             drop.map(user=>{
@@ -79,7 +95,7 @@ function Topbar(){
 
 const DisplayBox = () =>{
   return <>
-    <div className="logoutContainer">
+    <div ref={boxRef} className="logoutContainer">
       <button className="logoutBtn" >
 
       <Link to={`/profile/${user._id}`} className="logoutBtn" style={{textDecoration : 'none',color : 'black'}} >
@@ -109,12 +125,12 @@ const DisplayBox = () =>{
           </div>
           <div className="topbar-centre">
             
-            <input placeholder="Search for friends" value={search} onFocus={()=>setSearchBox(true)} onChange={(e)=>{setSearch(e.target.value)}} className="searchBar" /> 
+            <input onClick={()=>setSearchBox(true)} placeholder="Search for friends" value={search} onFocus={()=>setSearchBox(true)} onChange={(e)=>{setSearch(e.target.value)}} className="searchBar" /> 
             
             <Search className="mgf"  />
             
             
-            {search ?<Box />:null}
+            {searchBox?<Box />:null}
           </div>
           <div className="topbar-right">
              <div className="topbar-links">
@@ -144,12 +160,12 @@ const DisplayBox = () =>{
              </div>
             </div> */}
             <label htmlFor="btn">
-            <img alt="user" src={user.profilePic ? PF+user.profilePic : PF+"person/noAvatar.png"} className="img" />
+            <img alt="user" src={user.profilePic ? user.profilePic : PF+"person/noAvatar.png"} className="img" />
               <button id="btn" style={{display : "none"}} onClick={HandleprofIcon} >
 
               </button>
             </label>
-            {box && <DisplayBox />}
+            {box && <DisplayBox  />}
             
             
             

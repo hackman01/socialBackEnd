@@ -34,7 +34,8 @@ const submitHandler = async (e) => {
           newPost.img = fileName;
 
           try{
-              await axios.post("/api/upload",data);
+              const img = await axios.post("/api/upload",data);
+              newPost.img = img.data.url;
           } catch(err)
           {
                console.log(err);
@@ -59,7 +60,7 @@ const submitHandler = async (e) => {
     return      <div className="feed-post">
     <div className="post-top">
          <Link to={`/profile/${user._id}`}>
-         <img src={user.profilePic ? PF+user.profilePic : PF+"person/noAvatar.png"} alt="user" className="img" />
+         <img src={user.profilePic ? user.profilePic : PF+"person/noAvatar.png"} alt="user" className="img" />
          </Link>
          <span>{user.username}</span>
     </div>    

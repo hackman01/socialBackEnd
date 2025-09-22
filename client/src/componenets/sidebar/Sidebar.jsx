@@ -15,7 +15,7 @@ const CloseFriend = ({user}) =>{
    
    return <><Link to={`/profile/${user._id}`} style={{ textDecoration:'none',color:'black' }} >
    <div className="friend">
-     <img src={user.profilePic?PF+user.profilePic:PF+"person/noAvatar.png"} alt="user" className="img"/>
+     <img src={user.profilePic ? user.profilePic : PF+"person/noAvatar.png"} alt="user" className="img"/>
      <span>{user.username}</span>   
    </div>
    </Link>

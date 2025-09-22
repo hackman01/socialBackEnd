@@ -66,7 +66,7 @@ const Feed = ({post, setPostRender}) =>
     <Link to={"/profile/"+post.userId} style={{ textDecoration:'none',color:'black' }} >
     <div className="feed-top">
         <div className="post-top-left">
-        <img src={user.profilePic ? PF+user.profilePic : PF+"person/noAvatar.png"} alt="user" className="img" />
+        <img src={user.profilePic ? user.profilePic : PF+"person/noAvatar.png"} alt="user" className="img" />
         <span>{user.username}</span>
         </div>
          
@@ -77,7 +77,7 @@ const Feed = ({post, setPostRender}) =>
          <span className="description">
             {post.desc}
          </span>
-         {post.img && <img src={PF+post.img } alt="pic" className="post-pic" />}
+         {post.img && <img src={post.img} alt="pic" className="post-pic" />}
     </div> 
     <div className="post-bottom">
             <div className="bottom-icons">

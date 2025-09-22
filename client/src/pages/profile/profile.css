@@ -94,10 +94,21 @@ position: relative;
 }
 .chngPImgBtn{
     position: absolute;
-    left: 30.5rem;
+    right: 0.5rem;
     opacity: 0.7;
 }
 .PimgContainer{
     display: flex;
     margin: auto;
+}
+
+.pbtn{
+    cursor: pointer;
+
+}
+.pbtn:hover{
+    opacity: 0.7;
+}
+.pbtn:active{
+    opacity: 0.5;
 }

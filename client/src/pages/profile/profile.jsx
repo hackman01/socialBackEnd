@@ -26,6 +26,7 @@ function Profile()
     const {user : cuser,dispatch} = useContext(AuthContext)
     const [coverPic, setCoverPic] = useState(user.coverPic)
     const [profilePic,setProfilePic] = useState(user.profilePic)
+    const [loading, setLoading] = useState(false);
     
 
 const changeCoverHandler = async (e) =>{
@@ -41,15 +42,18 @@ const changeCoverHandler = async (e) =>{
           const fileName = Date.now() + file.name;
        
           data.append("file",file,fileName);
-          
-          newPost.coverPic = fileName;
 
           try{
-              await axios.post("/api/upload",data);
-              dispatch({type: "coverPic",payload : fileName})
+              setLoading(true);
+              const img = await axios.post("/api/upload",data);
+              newPost.coverPic = img.data.url;
+              console.log(img.data);
+              dispatch({type: "coverPic",payload : img.data.url})
           } catch(err)
           {
                console.log(err);
+          }finally{
+            setLoading(false)
           }
      }
      try{
@@ -77,14 +81,18 @@ const changeProfileHandler = async (e) =>{
        
           data.append("file",pImg,fileName);
           
-          newPost.profilePic = fileName;
+          
 
           try{
-              await axios.post("/api/upload",data);
-              dispatch({type: "profilePic",payload : fileName})
+              setLoading(true);
+              const img = await axios.post("/api/upload",data);
+              newPost.profilePic = img.data.url;
+              dispatch({type: "profilePic",payload : img.data.url})
           } catch(err)
           {
                console.log(err);
+          }finally{
+            setLoading(false);
           }
      }
      try{
@@ -117,13 +125,13 @@ useEffect(()=> {
 
  const UploadBtn = () =>{
     return <button className="chngImgBtn" onClick={changeCoverHandler} >
-        Upload
+        {loading && file ? "Uploading..." : "Upload Cover Pic"}
     </button>
  }
 
  const ProfileBtn = () =>{
-    return <button className="chngPImgBtn" onClick={changeProfileHandler} >
-        Upload
+    return <button  onClick={changeProfileHandler} >
+        {loading && pImg ? "Uploading..." : "Upload Profile Pic"}
     </button>
  }
     return <>
@@ -136,30 +144,34 @@ useEffect(()=> {
                     { cuser._id===user._id && (
                         <button className="chngImg" >
                     <label htmlFor="file"  >
-                        <CameraAlt  />
+                        <span>Change Cover</span>
                         <input type="file" id="file" accept=".png,.jpeg,.jpg" style={{ display : "none" }} onChange={(e)=>{
                       setFile(e.target.files[0])}} />
                       </label>
                     </button>
                     ) }
+                    
                     {file ? <UploadBtn /> : null}
                         
-                        <img src={ user._id===cuser._id && coverPic ? PF+coverPic : user.coverPic? PF+user.coverPic : PF+"person/noCover.png"} alt="cover" className="profileCoverImg" />
-                        <img src={user._id===cuser._id && profilePic ? PF+profilePic : user.profilePic ? PF+user.profilePic : PF+'person/noAvatar.png'} alt="user" className="coverUser" />
-                        { cuser._id===user._id && (
-                        <div className="PimgContainer">
-                        <button className="chngPImg" >
-                    <label htmlFor="Pfile"  >
-                        <CameraAlt  />
-                        <input type="file" id="Pfile" accept=".png,.jpeg,.jpg" style={{ display : "none" }} onChange={(e)=>{
-                      setPImg(e.target.files[0])}} />
-                      </label>
-                    </button>
-                        </div>
-                    ) }
-                    {pImg ? <ProfileBtn /> : null}
+                        <img src={ user._id===cuser._id && coverPic ? coverPic : user.coverPic? coverPic : PF+"person/noCover.png"} alt="cover" className="profileCoverImg" />
+                        <img src={user._id===cuser._id && profilePic ? profilePic : user.profilePic ? profilePic : PF+'person/noAvatar.png'} alt="user" className="coverUser" />
+                        
+                    
                     </div>
                     <div className="user-name">
+                    { !pImg && cuser._id===user._id && (
+                        
+                        <>
+                    <label htmlFor="Pfile"  >
+                        <span className="pbtn" >Change Profile</span>
+                        </label>
+                        <input type="file" id="Pfile" accept=".png,.jpeg,.jpg" style={{ display : "none" }} onChange={(e)=>{
+                      setPImg(e.target.files[0])}} />
+                      </>
+                    
+                        
+                    ) }
+                    {pImg ? <ProfileBtn /> : null}
                         <h4 className="name">{user.username}</h4>
                         <span className="message">
                             {user.desc}

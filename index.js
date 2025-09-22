@@ -9,6 +9,8 @@ const postRoute = require('./routes/post');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
+const fs = require('fs');
+const uploadImage = require('./lib/upload');
 
 const PORT = process.env.PORT || 8000;
 
@@ -41,12 +43,19 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({storage});
-app.post('/api/upload',upload.single("file"),(req,res)=>{
+app.post('/api/upload',upload.single("file"),async (req,res)=>{
     try{
-        return res.status(200).json("File uploaded Successfully!");
+        const result = await uploadImage(req.file.path);
+        fs.unlinkSync(req.file.path);
+
+        res.status(200).json({
+          url: result.secure_url,
+          public_id: result.public_id,
+        });
     }catch(err)
     {
         console.log(err);
+        res.status(500).json({error : "Failed to upload image"});
     }
 })
 
