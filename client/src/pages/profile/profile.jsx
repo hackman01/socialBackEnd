@@ -111,8 +111,11 @@ useEffect(()=>{
     const fetchUser = async () => {
         const res = await axios.get("/api/users?userId="+Id);
         setUser(res.data);
-       }
-       fetchUser();
+        // Update local image states when user data changes
+        setCoverPic(res.data.coverPic);
+        setProfilePic(res.data.profilePic);
+    }
+    fetchUser();
 },[Id])
 
 useEffect(()=> {
@@ -153,8 +156,8 @@ useEffect(()=> {
                     
                     {file ? <UploadBtn /> : null}
                         
-                        <img src={ user._id===cuser._id && coverPic ? coverPic : user.coverPic? coverPic : PF+"person/noCover.png"} alt="cover" className="profileCoverImg" />
-                        <img src={user._id===cuser._id && profilePic ? profilePic : user.profilePic ? profilePic : PF+'person/noAvatar.png'} alt="user" className="coverUser" />
+                        <img src={coverPic ? coverPic : PF+"person/noCover.png"} alt="cover" className="profileCoverImg" />
+                        <img src={profilePic ? profilePic : PF+'person/noAvatar.png'} alt="user" className="coverUser" />
                         
                     
                     </div>
