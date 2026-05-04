@@ -1,108 +1,108 @@
 const postModel = require('../models/Post');
 const postRouter = require('express').Router();
 const userModel = require('../models/User');
+const verifyToken = require('../middleware/auth');
 
 //create a post
 
-postRouter.post('/',async (req,res) => {
-    const newPost = new postModel(req.body);
-    try{
+postRouter.post('/', verifyToken, async (req, res) => {
+    const newPost = new postModel({
+        ...req.body,
+        userId: req.user.id  // always use the authenticated user's ID
+    });
+    try {
         const savedPost = await newPost.save();
         return res.status(200).json(savedPost);
-    }catch(err) {
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message : "Something went wrong!"});
+        return res.status(500).json({ message: "Something went wrong!" });
     }
-} )
+})
 
 //update post
-postRouter.put('/:id',async (req,res) => {
-    try{
+postRouter.put('/:id', verifyToken, async (req, res) => {
+    try {
 
         const post = await postModel.findById(req.params.id);
-        if(req.body.userId === post.userId) {
-            await post.updateOne({$set : req.body});
+        if (req.user.id === post.userId) {
+            await post.updateOne({ $set: req.body });
             return res.status(200).json(post);
         }
         else {
-            return res.status(500).json({message : "You can update only your posts"});
+            return res.status(403).json({ message: "You can update only your posts" });
         }
 
-    }catch(err){
+    } catch (err) {
         console.log(err);
-        return res.status(500).json({message:"Something went Wrong!"});
+        return res.status(500).json({ message: "Something went Wrong!" });
     }
 })
 
 //delete post
 
-postRouter.delete('/:id', async (req,res) => {
+postRouter.delete('/:id', verifyToken, async (req, res) => {
 
+    try {
 
-try{
+        const post = await postModel.findById(req.params.id);
+        console.log(post.userId);
+        if (req.user.id === post.userId) {
+            await post.deleteOne();
+            return res.status(200).json({ message: "Your post has been deleted!" });
+        } else {
+            return res.status(403).json({ message: "You can delete only your post!" });
+        }
 
-    const post = await postModel.findById(req.params.id);
-    console.log(post.userId);
-    console.log(req.body);
-    if(req.body.userId===post.userId)
-    {
-        await post.deleteOne();
-        return res.status(200).json({message:"Your post has been deleted!"});
-    }else{
-        return res.status(500).json({message:"You can delete only your post!"});
     }
+    catch (err) {
 
-}
-catch(err){
+        console.log(err);
+        return res.status(500).json({ message: "Something went wrong!" });
 
-   console.log(err);
-   return res.status(500).json({message:"Something went wrong!"});
-
-}
+    }
 
 })
 
 //likes or dislikes
 
-postRouter.put('/:id/like', async (req,res) => {
-     
-   try{
+postRouter.put('/:id/like', verifyToken, async (req, res) => {
 
-    const post = await postModel.findById(req.params.id);
-    if(!post.likes.includes(req.body.userId))
-    {
-        await post.updateOne({$push : {likes : req.body.userId}});
-        return res.status(200).json({message : "Post Liked!"});
-    } else {
-        await post.updateOne({$pull : {likes : req.body.userId}});
-        return res.status(200).json({message : "Post Disliked!"});
+    try {
+
+        const post = await postModel.findById(req.params.id);
+        if (!post.likes.includes(req.user.id)) {
+            await post.updateOne({ $push: { likes: req.user.id } });
+            return res.status(200).json({ message: "Post Liked!" });
+        } else {
+            await post.updateOne({ $pull: { likes: req.user.id } });
+            return res.status(200).json({ message: "Post Disliked!" });
+        }
+
+    } catch (err) {
+        return res.status(500).json({ message: "Something went wrong!" });
     }
-
-   } catch (err){
-    return res.status(500).json({message:"Something went wrong!"});
-   }
 
 })
 
-postRouter.get('/:id', async (req,res) => {
-    try{
-     const user= await userModel.findById(req.params.id) 
-     const posts= await postModel.find({userId:req.params.id});
-     return res.status(200).json(posts);
+postRouter.get('/:id', verifyToken, async (req, res) => {
+    try {
+        const user = await userModel.findById(req.params.id)
+        const posts = await postModel.find({ userId: req.params.id });
+        return res.status(200).json(posts);
 
-    } catch(err){
-        return res.status(500).json({message:"Something went wrong!"});
+    } catch (err) {
+        return res.status(500).json({ message: "Something went wrong!" });
     }
 })
 
-postRouter.get('/timeline/:id',async (req,res) => {
-    try{
-   
-        const user= await userModel.findById(req.params.id);
-        const currentUserPosts = await postModel.find({userId:req.params.id});
+postRouter.get('/timeline/:id', verifyToken, async (req, res) => {
+    try {
+
+        const user = await userModel.findById(req.params.id);
+        const currentUserPosts = await postModel.find({ userId: req.params.id });
         const friendsPosts = await Promise.all(
             user.followings.map(friendId => {
-               return postModel.find({userId : friendId})
+                return postModel.find({ userId: friendId })
             })
         );
         // return res.status(200).json(currentUserPosts);
@@ -110,8 +110,8 @@ postRouter.get('/timeline/:id',async (req,res) => {
 
     } catch (err) {
 
-       console.log(err);
-       return res.status(500).json({message : "Something went wrong!"});
+        console.log(err);
+        return res.status(500).json({ message: "Something went wrong!" });
 
     }
 })

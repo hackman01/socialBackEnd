@@ -1,7 +1,6 @@
 import React from "react";
 import {useState, useEffect, useContext} from "react";
-import axios from 'axios';
-import './Feed.css';
+import axios from '../../utils/axios';
 import Post from './Post.jsx';
 import Feed from './Feed.jsx';
 import { CircularProgress } from "@material-ui/core";
@@ -35,10 +34,10 @@ function Feeds({cuser}){
 },[cuser,user._id,postRender]);
 
     
-    return <div className="feed">
-        <div className="feed-wrapper">
+    return <div className="flex-[6] lg:flex-[5] min-h-[calc(100vh-64px)] pb-20">
+        <div className="mt-4 p-2 md:p-4 max-w-3xl mx-auto">
         {cuser? cuser._id===user._id && <Post reRender={setPostRender} /> : <Post reRender={setPostRender} />}
-       {load ? <CircularProgress style={{color : 'brown',display : 'block',margin : 'auto',padding : '50px'}} />  : posts.map((p)=>{
+       {load ? <div className="flex justify-center mt-12"><CircularProgress style={{color : '#ac300a'}} /></div>  : posts.map((p)=>{
         return <Feed key={p._id} post={p} setPostRender={setPostRender} />
         
        })}
@@ -50,5 +49,3 @@ function Feeds({cuser}){
 }
 
 export default Feeds;
-
-

@@ -6,11 +6,13 @@ const morgan=require('morgan');
 const userRoute = require('./routes/user');
 const authRoute = require('./routes/auth');
 const postRoute = require('./routes/post');
+const commentRoute = require('./routes/comment');
 const multer = require('multer');
 const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
 const uploadImage = require('./lib/upload');
+const verifyToken = require('./middleware/auth');
 
 const PORT = process.env.PORT || 8000;
 
@@ -51,7 +53,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({storage});
-app.post('/api/upload',upload.single("file"),async (req,res)=>{
+app.post('/api/upload', verifyToken, upload.single("file"), async (req,res)=>{
     try{
         const result = await uploadImage(req.file.path);
         fs.unlinkSync(req.file.path);
@@ -74,6 +76,7 @@ mongoose.connect(process.env.MONGO_URL,{useNewUrlParser : true}).then(()=>{conso
 app.use('/api/users',userRoute);
 app.use('/api/auth',authRoute);
 app.use('/api/posts',postRoute);
+app.use('/api/comments',commentRoute);
 
 app.get('/*',(req,res)=>{
     res.sendFile(__dirname+'/client/build/index.html');
